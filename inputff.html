@@ -146,10 +146,21 @@
     <script>
       // Ambil elemen input item
       var itemInput = document.getElementById("item");
-      var itemInput = document.getElementById("userid");
+      var useridInput = document.getElementById("userid");
 
-      // Tambahkan event listener untuk memfilter input
+      // Tambahkan event listener untuk memfilter input item
       itemInput.addEventListener("input", function (event) {
+        var inputValue = this.value;
+
+        // Hapus karakter selain angka 0-9 menggunakan regular expression
+        var filteredValue = inputValue.replace(/[^\d]/g, "");
+
+        // Update nilai input dengan nilai yang telah difilter
+        this.value = filteredValue;
+      });
+
+      // Tambahkan event listener untuk memfilter input userid
+      useridInput.addEventListener("input", function (event) {
         var inputValue = this.value;
 
         // Hapus karakter selain angka 0-9 menggunakan regular expression
