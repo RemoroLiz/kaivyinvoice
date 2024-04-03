@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Input Pemesanan</title>
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        background-color: #f2f2f2;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      .form-container {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      h2 {
+        text-align: center;
+        color: #333;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 5px;
+        color: #666;
+      }
+
+      input[type="text"],
+      select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+      }
+
+      button[type="submit"] {
+        background-color: #4caf50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 100%;
+        font-size: 16px;
+      }
+
+      button[type="submit"]:hover {
+        background-color: #45a049;
+      }
+      #tanggalPembelianGroup {
+        display: none;
+      }
+    </style>
+    <div class="form-container">
+      <h2>Form Input Detail Pemesanan</h2>
+      <form id="input-form">
+        <div class="form-group">
+          <label for="item">Item:</label>
+          <input
+            type="text"
+            id="item"
+            name="item"
+            placeholder="Masukkan Jumlah Diamonds"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="username">Username:</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            placeholder="Masukkan Username"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="userid">User Id:</label>
+          <input
+            type="text"
+            id="userid"
+            name="userid"
+            placeholder="Masukkan UserId"
+            required
+          />
+        </div>
+        <div class="form-group" id="tanggalPembelianGroup">
+          <label for="tanggalPembelian">Tanggal Pembelian:</label>
+          <input
+            type="text"
+            id="tanggalPembelian"
+            name="tanggalPembelian"
+            readonly
+          />
+        </div>
+        <div class="form-group">
+          <label for="metodePembayaran">Metode Pembayaran:</label>
+          <select id="metodePembayaran" name="metodePembayaran" required>
+            <option value="Qris">QRIS</option>
+            <option value="BCA Digital">BCA Digital</option>
+            <option value="Dana">Dana</option>
+            <option value="Gopay">Gopay</option>
+            <option value="Ovo">Ovo</option>
+            <option value="Spay">Spay</option>
+            <option value="SeaBank">SeaBank</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="totalHarga">Total Harga:</label>
+          <input
+            type="text"
+            id="totalHarga"
+            name="totalHarga"
+            placeholder="Masukkan Total Harga"
+            required
+          />
+        </div>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+
+    <script>
+      // Ambil elemen input item
+      var itemInput = document.getElementById("item");
+      var itemInput = document.getElementById("userid");
+
+      // Tambahkan event listener untuk memfilter input
+      itemInput.addEventListener("input", function (event) {
+        var inputValue = this.value;
+
+        // Hapus karakter selain angka 0-9 menggunakan regular expression
+        var filteredValue = inputValue.replace(/[^\d]/g, "");
+
+        // Update nilai input dengan nilai yang telah difilter
+        this.value = filteredValue;
+      });
+    </script>
+    <script>
+      document
+        .getElementById("input-form")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          // Retrieve input values
+          var item = document.getElementById("item").value + " Diamonds";
+          var username = document.getElementById("username").value;
+          var userid = document.getElementById("userid").value;
+          var tanggalPembelian =
+            document.getElementById("tanggalPembelian").value;
+          var metodePembayaran =
+            document.getElementById("metodePembayaran").value;
+          var totalHarga = document.getElementById("totalHarga").value;
+
+          // Validate userid
+          if (userid.length < 4) {
+            alert("MAAF KAI User ID Yang Di Masukkan Tidak Tersedia.");
+            return; // Stop the function if validation fails
+          }
+
+          // Generate ticket number
+          var randomDigits = Math.floor(1000 + Math.random() * 9000); // Generate random 4 digits number
+          var userIdPrefix = userid.substring(0, 3); // Get first 3 digits of userid
+          var ticketNumber = "TRXFF" + userIdPrefix + randomDigits;
+          var totalHargaInput = parseFloat(
+            document.getElementById("totalHarga").value
+          ); // Ambil nilai total harga sebagai angka float
+          var totalHarga = totalHargaInput.toLocaleString("id-ID", {
+            style: "currency",
+            currency: "IDR",
+          }); // Tambahkan format accounting
+
+          // Store data in localStorage
+          localStorage.setItem("item", item);
+          localStorage.setItem("username", username);
+          localStorage.setItem("userid", userid);
+          localStorage.setItem("tanggalPembelian", tanggalPembelian);
+          localStorage.setItem("metodePembayaran", metodePembayaran);
+          localStorage.setItem("totalHarga", totalHarga);
+          localStorage.setItem("ticketNumber", ticketNumber);
+
+          // Redirect to detail-pemesanan.html
+          window.location.href = "invoiceff.html";
+        });
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Ambil elemen input tanggal pembelian
+        var inputTanggalPembelian = document.getElementById("tanggalPembelian");
+
+        // Set nilai input tanggal pembelian dengan tanggal saat ini
+        var tanggalSaatIni = new Date();
+        var tanggalString = tanggalSaatIni.toLocaleDateString("id-ID");
+        var waktuString = tanggalSaatIni.toLocaleTimeString("id-ID", {
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+        });
+        var dateTimeString = tanggalString + ", " + waktuString;
+        inputTanggalPembelian.value = dateTimeString;
+      });
+    </script>
+  </body>
+</html>
