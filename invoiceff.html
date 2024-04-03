@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NextJS Conf Card</title>
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="ticket-visual_visual" id="ticket">
+      <div class="left"></div>
+      <div class="right"></div>
+      <div class="ticket-visual-wrapper">
+        <div class="ticket-visual_profile">
+          <div class="ticket-profile_profile">
+            <img
+              src="https://sin1.contabostorage.com/0a986eb902c4469cb860e43985eb18a1:vocapanel/bananagamestore/ezgif-6e8c-original.webp"
+              alt="madflows"
+              class="ticket-profile_image"
+            />
+            <div class="ticket-profile_text">
+              <p class="ticket-profile_game_name">FreeFire</p>
+              <p class="ticket-profile_publisher">Garena</p>
+            </div>
+          </div>
+          <div class="ticket-event">
+            <div class="detail-header">Detail</div>
+            <div class="detail-row">
+              <div class="detail-label">Item</div>
+              <div class="detail-pemesanan item" id="item"></div>
+            </div>
+            <div class="detail-row">
+              <div class="detail-label">Username</div>
+              <div class="detail-pemesanan username" id="username"></div>
+            </div>
+            <div class="detail-row">
+              <div class="detail-label">User Id</div>
+              <div class="detail-pemesanan userid" id="userid"></div>
+            </div>
+            <div class="detail-row">
+              <div class="detail-label">Tanggal Pembelian</div>
+              <div
+                class="detail-pemesanan tanggalPembelian"
+                id="tanggalPembelian"
+              ></div>
+            </div>
+            <div class="detail-row">
+              <div class="detail-label">Metode Pembayaran</div>
+              <div
+                class="detail-pemesanan metodePembayaran"
+                id="metodePembayaran"
+              ></div>
+            </div>
+            <div class="detail-row">
+              <div class="detail-label">Total Harga</div>
+              <div class="detail-pemesanan totalHarga" id="totalHarga"></div>
+            </div>
+          </div>
+          <div class="ticket-visual_ticket-number-wrapper">
+            <div class="ticket-visual_ticket-number" id="ticketNumber"></div>
+          </div>
+        </div>
+      </div>
+      <div class="button-container">
+        <button id="download-invoice">Download Invoice</button>
+        <a href="inputff.html" class="menu-input-btn">Menu Input</a>
+      </div>
+    </div>
+    <script>
+      // Wait for the DOM to be fully loaded
+      document.addEventListener("DOMContentLoaded", function () {
+        // Retrieve data from localStorage
+        var item = localStorage.getItem("item");
+        var username = localStorage.getItem("username");
+        var userid = localStorage.getItem("userid");
+        var tanggalPembelian = localStorage.getItem("tanggalPembelian");
+        var metodePembayaran = localStorage.getItem("metodePembayaran");
+        var totalHarga = localStorage.getItem("totalHarga");
+        var ticketNumber = localStorage.getItem("ticketNumber");
+
+        // Populate the ticket details
+        document.getElementById("item").textContent = item;
+        document.getElementById("username").textContent = username;
+        document.getElementById("userid").textContent = userid;
+        document.getElementById("tanggalPembelian").textContent =
+          tanggalPembelian;
+        document.getElementById("metodePembayaran").textContent =
+          metodePembayaran;
+        document.getElementById("totalHarga").textContent = totalHarga;
+        document.getElementById("ticketNumber").textContent = ticketNumber;
+      });
+    </script>
+    <!--Script Download Konten to Image-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.2/html2canvas.min.js"></script>
+    <script>
+      document
+        .getElementById("download-invoice")
+        .addEventListener("click", function () {
+          html2canvas(document.getElementById("ticket"), {
+            allowTaint: true,
+            useCORS: true,
+          }).then(function (canvas) {
+            // Create an image
+            var image = canvas.toDataURL("image/png");
+            // Create a temporary link element
+            var a = document.createElement("a");
+            a.href = image;
+            a.download = "download.png"; // You can name the download file here
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+          });
+        });
+    </script>
+  </body>
+</html>

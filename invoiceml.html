@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NextJS Conf Card</title>
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="ticket-visual_visual" id="ticket">
+      <div class="left"></div>
+      <div class="right"></div>
+      <div class="ticket-visual-wrapper">
+        <div class="ticket-visual_profile">
+          <div class="ticket-profile_profile">
+            <img
+              src="https://sin1.contabostorage.com/0a986eb902c4469cb860e43985eb18a1:vocapanel/bananagamestore/IMG_0230-6c10c-original-b67c-original.webp"
+              alt="madflows"
+              class="ticket-profile_image"
+            />
+            <div class="ticket-profile_text">
+              <p class="ticket-profile_game_name">Mobile Legends</p>
+              <p class="ticket-profile_publisher">Moonton</p>
+              <!-- Refactored html -->
+            </div>
+          </div>
+          <div class="ticket-event">
+            <div class="detail-header">Detail</div>
+            <div class="detail-row">
+              <div class="detail-label">Item</div>
+              <div class="detail-pemesanan">3 (3+0) Diamonds</div>
+            </div>
+            <div class="detail-row">
+              <div class="detail-label">Username</div>
+              <div class="detail-pemesanan">— 20' кαī.</div>
+            </div>
+            <div class="detail-row">
+              <div class="detail-label">User Id</div>
+              <div class="detail-pemesanan">720453083</div>
+            </div>
+            <div class="detail-row">
+              <div class="detail-label">Zone Id</div>
+              <div class="detail-pemesanan">10342</div>
+            </div>
+            <div class="detail-row">
+              <div class="detail-label">Tanggal Pembelian</div>
+              <div class="detail-pemesanan">28/03/2024, 20:10:23</div>
+            </div>
+            <div class="detail-row">
+              <div class="detail-label">Metode Pembayaran</div>
+              <div class="detail-pemesanan">
+                QRIS Untuk Semua Pembayaran (Dicek Otomatis 1 Detik)
+              </div>
+            </div>
+            <div class="detail-row">
+              <div class="detail-label">Total Harga</div>
+              <div class="detail-pemesanan">Rp. 90.000</div>
+            </div>
+          </div>
+          <div class="ticket-visual_ticket-number-wrapper">
+            <div class="ticket-visual_ticket-number">MLTRX3000201001</div>
+          </div>
+        </div>
+      </div>
+      <div class="button-container">
+        <button id="download-invoice">Download Invoice</button>
+        <a href="input.html" class="menu-input-btn">Menu Input</a>
+      </div>
+    </div>
+
+    <!--Script Download Konten to Image-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.2/html2canvas.min.js"></script>
+    <script>
+      document
+        .getElementById("download-invoice")
+        .addEventListener("click", function () {
+          html2canvas(document.getElementById("ticket")).then(function (
+            canvas
+          ) {
+            // Create an image
+            var image = canvas.toDataURL("image/png");
+            // Create a temporary link element
+            var a = document.createElement("a");
+            a.href = image;
+            a.download = "download.png"; // You can name the download file here
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+          });
+        });
+    </script>
+  </body>
+</html>

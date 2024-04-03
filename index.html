@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Game Selection</title>
+  </head>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f8f8f8;
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+
+    #nameInput {
+      text-align: center;
+    }
+
+    #nameInput input[type="text"] {
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin-right: 10px;
+    }
+
+    #nameInput button {
+      padding: 8px 16px;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #gameSelection {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    #gameSelection p {
+      margin-bottom: 10px;
+    }
+
+    #gameSelection button {
+      padding: 8px 16px;
+      margin: 0 5px;
+      background-color: #008cba;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #gameSelection button:hover {
+      background-color: #005f6b;
+    }
+  </style>
+  <body>
+    <div class="container">
+      <h2>Welcome to Game Selection</h2>
+      <div id="nameInput">
+        <label for="username">Please enter your name:</label>
+        <input type="text" id="username" placeholder="Your name..." />
+        <button onclick="updateName()">Submit</button>
+      </div>
+      <div id="gameSelection" style="display: none">
+        <p>Pilih Game <span id="userNameDisplay"></span>:</p>
+        <button onclick="selectGame('Mobile Legend')">Mobile Legend</button>
+        <a href="inputff.html"
+          ><button onclick="selectGame('Free Fire')">Free Fire</button></a
+        >
+      </div>
+    </div>
+
+    <script>
+      function updateName() {
+        var userName = document.getElementById("username").value;
+        var userNameDisplay = document.getElementById("userNameDisplay");
+        userNameDisplay.textContent = userName;
+        document.getElementById("nameInput").style.display = "none";
+        document.getElementById("gameSelection").style.display = "block";
+      }
+
+      function selectGame(gameName) {
+        alert("Game selected: " + gameName);
+      }
+    </script>
+  </body>
+</html>
