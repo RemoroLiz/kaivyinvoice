@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Input Pemesanan</title>
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Tambahkan script CSS Select2 -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Tambahkan script JavaScript Select2 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        background-color: #f2f2f2;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      .form-container {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      h2 {
+        text-align: center;
+        color: #333;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 5px;
+        color: #666;
+      }
+
+      input[type="text"],
+      select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+      }
+
+      button[type="submit"] {
+        background-color: #4caf50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 100%;
+        font-size: 16px;
+      }
+
+      button[type="submit"]:hover {
+        background-color: #45a049;
+      }
+      #tanggalPembelian_mlGroup {
+        display: none;
+      }
+    </style>
+    <div class="form-container">
+      <h2>Form Input Detail Pemesanan</h2>
+      <form id="input-form">
+        <div class="form-group">
+          <label for="item_ml">Item:</label>
+          <select id="item_ml" name="item_ml" required>
+            <option value="">Pilih Item</option>
+            <option value="85">85 💎</option>
+            <option value="148">148 💎</option>
+            <option value="258">258 💎</option>
+            <option value="370">370 💎</option>
+            <option value="408">408 💎</option>
+            <option value="568">568 💎</option>
+            <option value="642">642 💎</option>
+            <option value="716">716 💎</option>
+            <option value="845">845 💎</option>
+            <option value="966">966 💎</option>
+            <option value="1136">1136 💎</option>
+            <option value="2010">2010 💎</option>
+            <option value="Weekly Pass">Weekly Pass</option>
+            <option value="Starlight Pass">Starlight Pass</option>
+          </select>
+        </div>
+        <!--Script Form item-->
+        <script>
+          document
+            .getElementById("item_ml")
+            .addEventListener("change", function () {
+              var selectedItem = this.value;
+              var totalHarga_mlInput = document.getElementById("totalHarga_ml");
+
+              // Set total harga berdasarkan item yang dipilih
+              switch (selectedItem) {
+                case "85":
+                  totalHarga_mlInput.value = "24.000";
+                  break;
+                case "148":
+                  totalHarga_mlInput.value = "40.000";
+                  break;
+                case "258":
+                  totalHarga_mlInput.value = "69000";
+                  break;
+                case "370":
+                  totalHarga_mlInput.value = "100000";
+                  break;
+                case "408":
+                  totalHarga_mlInput.value = "108000";
+                  break;
+                case "568":
+                  totalHarga_mlInput.value = "148000";
+                  break;
+                case "642":
+                  totalHarga_mlInput.value = "165000";
+                  break;
+                case "716":
+                  totalHarga_mlInput.value = "185000";
+                  break;
+                case "845":
+                  totalHarga_mlInput.value = "220000";
+                  break;
+                case "966":
+                  totalHarga_mlInput.value = "255000";
+                  break;
+                case "1136":
+                  totalHarga_mlInput.value = "298000";
+                  break;
+                case "2010":
+                  totalHarga_mlInput.value = "488000";
+                  break;
+                case "Weekly Pass":
+                  totalHarga_mlInput.value = "28500";
+                  break;
+                case "Starlight Pass":
+                  totalHarga_mlInput.value = "50000";
+                  break;
+                default:
+                  totalHarga_mlInput.value = ""; // Kosongkan total harga jika tidak ada item dipilih
+              }
+            });
+        </script>
+        <div class="form-group">
+          <label for="username_ml">Username:</label>
+          <input
+            type="text"
+            id="username_ml"
+            name="username_ml"
+            placeholder="Masukkan Username"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="userid_ml">User Id:</label>
+          <input
+            type="text"
+            id="userid_ml"
+            name="userid_ml"
+            placeholder="Masukkan User ID"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="zoneid_ml">Zone ID:</label>
+          <input
+            type="text"
+            id="zoneid_ml"
+            name="zoneid_ml"
+            placeholder="Masukkan Zone ID"
+            required
+          />
+        </div>
+        <div class="form-group" id="tanggalPembelian_mlGroup">
+          <label for="tanggalPembelian_ml">Tanggal Pembelian:</label>
+          <input
+            type="text"
+            id="tanggalPembelian_ml"
+            name="tanggalPembelian_ml"
+            readonly
+          />
+        </div>
+        <div class="form-group">
+          <label for="metodePembayaran_ml">Metode Pembayaran:</label>
+          <select id="metodePembayaran_ml" name="metodePembayaran_ml" required>
+            <option value="Qris">QRIS</option>
+            <option value="BCA Digital">BCA Digital</option>
+            <option value="Dana">Dana</option>
+            <option value="Gopay">Gopay</option>
+            <option value="Ovo">Ovo</option>
+            <option value="Spay">Spay</option>
+            <option value="SeaBank">SeaBank</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="totalHarga_ml">Total Harga:</label>
+          <input
+            type="text"
+            id="totalHarga_ml"
+            name="totalHarga_ml"
+            placeholder="Masukkan Total Harga"
+            required
+          />
+        </div>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+
+    <script>
+      // Ambil elemen input item_ml
+      var userid_mlInput = document.getElementById("userid_ml");
+      var zoneid_mlInput = document.getElementById("zoneid_ml");
+
+      // Tambahkan event listener untuk memfilter input userid_ml
+      userid_mlInput.addEventListener("input", function (event) {
+        var inputValue = this.value;
+
+        // Hapus karakter selain angka 0-9 menggunakan regular expression
+        var filteredValue = inputValue.replace(/[^\d]/g, "");
+
+        // Update nilai input dengan nilai yang telah difilter
+        this.value = filteredValue;
+      });
+      // Tambahkan event listener untuk memfilter input zoneid_ml
+      zoneid_ml.addEventListener("input", function (event) {
+        var inputValue = this.value;
+
+        // Hapus karakter selain angka 0-9 menggunakan regular expression
+        var filteredValue = inputValue.replace(/[^\d]/g, "");
+
+        // Update nilai input dengan nilai yang telah difilter
+        this.value = filteredValue;
+      });
+
+      // Tambahkan event listener untuk memfilter input totalHarga_ml
+      totalHarga_ml.addEventListener("input", function (event) {
+        var inputValue = this.value;
+
+        // Hapus karakter selain angka 0-9 menggunakan regular expression
+        var filteredValue = inputValue.replace(/[^\d]/g, "");
+
+        // Update nilai input dengan nilai yang telah difilter
+        this.value = filteredValue;
+      });
+    </script>
+
+    <script>
+      document
+        .getElementById("input-form")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          // Retrieve input values
+          var item_ml = document.getElementById("item_ml").value + " 💎";
+          var username_ml = document.getElementById("username_ml").value;
+          var userid_ml = document.getElementById("userid_ml").value;
+          var zoneid_ml = document.getElementById("zoneid_ml").value;
+          var tanggalPembelian_ml = document.getElementById(
+            "tanggalPembelian_ml"
+          ).value;
+          var metodePembayaran_ml = document.getElementById(
+            "metodePembayaran_ml"
+          ).value;
+          var totalHarga_ml = document.getElementById("totalHarga_ml").value;
+
+          // Validate userid_ml
+          if (userid_ml.length < 4) {
+            alert("MAAF KAI User ID Yang Di Masukkan Tidak Tersedia.");
+            return; // Stop the function if validation fails
+          }
+
+          // Generate ticket number
+
+          var randomDigits = Math.floor(10000 + Math.random() * 90000);
+          var ticketNumber_ml = "TRXML" + zoneid_ml + randomDigits; // Gunakan seluruh zoneid dalam pembuatan nomor tiket
+
+          //total Haraga
+          var totalHarga_mlInput = parseFloat(
+            document.getElementById("totalHarga_ml").value
+          ); // Ambil nilai total harga sebagai angka float
+          var totalHarga_ml = totalHarga_mlInput.toLocaleString("id-ID", {
+            style: "currency",
+            currency: "IDR",
+          }); // Tambahkan format accounting
+
+          // Store data in localStorage
+          localStorage.setItem("item_ml", item_ml);
+          localStorage.setItem("username_ml", username_ml);
+          localStorage.setItem("userid_ml", userid_ml);
+          localStorage.setItem("zoneid_ml", zoneid_ml);
+          localStorage.setItem("tanggalPembelian_ml", tanggalPembelian_ml);
+          localStorage.setItem("metodePembayaran_ml", metodePembayaran_ml);
+          localStorage.setItem("totalHarga_ml", totalHarga_ml);
+          localStorage.setItem("ticketNumber_ml", ticketNumber_ml);
+
+          // Redirect to detail-pemesanan.html
+          window.location.href = "invoiceml.html";
+        });
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Ambil elemen input tanggal pembelian
+        var inputtanggalPembelian_ml = document.getElementById(
+          "tanggalPembelian_ml"
+        );
+
+        // Set nilai input tanggal pembelian dengan tanggal saat ini
+        var tanggalSaatIni = new Date();
+        var tanggalString = tanggalSaatIni.toLocaleDateString("id-ID");
+        var waktuString = tanggalSaatIni.toLocaleTimeString("id-ID", {
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+        });
+        var dateTimeString = tanggalString + ", " + waktuString;
+        inputtanggalPembelian_ml.value = dateTimeString;
+      });
+    </script>
+  </body>
+</html>
