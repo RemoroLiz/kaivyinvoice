@@ -35,45 +35,82 @@
             <div class="detail-header">Detail</div>
             <div class="detail-row">
               <div class="detail-label">Item</div>
-              <div class="detail-pemesanan">3 (3+0) Diamonds</div>
+              <div class="detail-pemesanan item_ml" id="item_ml"></div>
             </div>
             <div class="detail-row">
               <div class="detail-label">Username</div>
-              <div class="detail-pemesanan">— 20' кαī.</div>
+              <div class="detail-pemesanan username_ml" id="username_ml"></div>
             </div>
             <div class="detail-row">
               <div class="detail-label">User Id</div>
-              <div class="detail-pemesanan">720453083</div>
+              <div class="detail-pemesanan userid_ml" id="userid_ml"></div>
             </div>
             <div class="detail-row">
               <div class="detail-label">Zone Id</div>
-              <div class="detail-pemesanan">10342</div>
+              <div class="detail-pemesanan zoneid_ml" id="zoneid_ml"></div>
             </div>
             <div class="detail-row">
               <div class="detail-label">Tanggal Pembelian</div>
-              <div class="detail-pemesanan">28/03/2024, 20:10:23</div>
+              <div
+                class="detail-pemesanan tanggalPembelian_ml"
+                id="tanggalPembelian_ml"
+              ></div>
             </div>
             <div class="detail-row">
               <div class="detail-label">Metode Pembayaran</div>
-              <div class="detail-pemesanan">
+              <div
+                class="detail-pemesanan meotdePembayaran_ml"
+                id="metodePembayaran_ml"
+              >
                 QRIS Untuk Semua Pembayaran (Dicek Otomatis 1 Detik)
               </div>
             </div>
             <div class="detail-row">
               <div class="detail-label">Total Harga</div>
-              <div class="detail-pemesanan">Rp. 90.000</div>
+              <div
+                class="detail-pemesanan totalHarga_ml"
+                id="totalHarga_ml"
+              ></div>
             </div>
           </div>
           <div class="ticket-visual_ticket-number-wrapper">
-            <div class="ticket-visual_ticket-number">MLTRX3000201001</div>
+            <div class="ticket-visual_ticket-number" id="ticketNumber_ml"></div>
           </div>
         </div>
       </div>
       <div class="button-container">
         <button id="download-invoice">Download Invoice</button>
-        <a href="input.html" class="menu-input-btn">Menu Input</a>
+        <a href="inputml.html" class="menu-input-btn">Menu Input</a>
       </div>
     </div>
+
+    <!--ScriptData-->
+    <script>
+      // Wait for the DOM to be fully loaded
+      document.addEventListener("DOMContentLoaded", function () {
+        // Retrieve data from localStorage
+        var item = localStorage.getItem("item_ml");
+        var username = localStorage.getItem("username_ml");
+        var userid = localStorage.getItem("userid_ml");
+        var zoneid = localStorage.getItem("zoneid_ml");
+        var tanggalPembelian = localStorage.getItem("tanggalPembelian_ml");
+        var metodePembayaran = localStorage.getItem("metodePembayaran_ml");
+        var totalHarga = localStorage.getItem("totalHarga_ml");
+        var ticketNumber = localStorage.getItem("ticketNumber_ml");
+
+        // Populate the ticket details
+        document.getElementById("item_ml").textContent = item;
+        document.getElementById("username_ml").textContent = username;
+        document.getElementById("userid_ml").textContent = userid;
+        document.getElementById("zoneid_ml").textContent = zoneid;
+        document.getElementById("tanggalPembelian_ml").textContent =
+          tanggalPembelian;
+        document.getElementById("metodePembayaran_ml").textContent =
+          metodePembayaran;
+        document.getElementById("totalHarga_ml").textContent = totalHarga;
+        document.getElementById("ticketNumber_ml").textContent = ticketNumber;
+      });
+    </script>
 
     <!--Script Download Konten to Image-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.2/html2canvas.min.js"></script>
