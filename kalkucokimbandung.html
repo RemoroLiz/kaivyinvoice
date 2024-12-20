@@ -9,23 +9,17 @@
         body {
             font-family: Arial, sans-serif;
         }
-        .container {
-            margin-top: 30px;
-        }
-        .form-group {
-            width: 100%;
-        }
         .menu-button {
             border-radius: 25px;
             margin: 10px;
-        }
-        .table {
-            margin-top: 20px;
         }
         @media (max-width: 768px) {
             .menu-button {
                 width: 100%;
             }
+        }
+        .modal-lg {
+            max-width: 80%;
         }
     </style>
 </head>
@@ -54,14 +48,14 @@
         </div>
     </nav>
 
-    <div class="container">
-        <h3>Cokim saat ini: <span id="cokim-header">1350000</span></h3>
-
-        <form id="calc-form">
-            <!-- Dropdown Kode Emas -->
+    <div class="container mt-4">
+        <h3 id="cokimHeader">Cokim saat ini: 1300000</h3>
+        <h4>Form Hitungan Cokim:</h4>
+        
+        <form id="calcForm">
             <div class="form-group">
-                <label for="kode-emas">KODE EMAS:</label>
-                <select class="form-control" id="kode-emas">
+                <label for="kodeEmas">KODE EMAS</label>
+                <select id="kodeEmas" class="form-control" onchange="updatePrice()">
                     <option value="38">38 JUENE</option>
                     <option value="46.5">46.5 BG GOLD</option>
                     <option value="44">44 KUNING 8K</option>
@@ -77,189 +71,176 @@
                     <option value="102">102 ITALY</option>
                 </select>
             </div>
-
-            <!-- Dropdown Warna -->
             <div class="form-group">
-                <label for="warna">WARNA:</label>
-                <select class="form-control" id="warna">
+                <label for="warna">WARNA</label>
+                <select id="warna" class="form-control" onchange="updatePrice()">
                     <option value="kuning">KUNING</option>
                     <option value="putih">PUTIH</option>
                     <option value="rosegold">ROSEGOLD</option>
                 </select>
             </div>
-
-            <!-- Harga Readonly -->
             <div class="form-group">
-                <label for="harga">HARGA:</label>
-                <input type="text" class="form-control" id="harga" readonly>
+                <label for="hargaPerGram">HARGA</label>
+                <input type="text" id="hargaPerGram" class="form-control" readonly>
             </div>
-
-            <!-- Berat Input -->
             <div class="form-group">
-                <label for="berat">BERAT (GR):</label>
-                <input type="number" class="form-control" id="berat" required>
+                <label for="berat">BERAT (GR)</label>
+                <input type="number" id="berat" class="form-control">
             </div>
-
-            <!-- Ongkos -->
             <div class="form-group">
-                <label for="ongkos">ONGKOS:</label>
-                <input type="text" class="form-control" id="ongkos" readonly>
+                <label for="ongkos">Ongkos</label>
+                <input type="text" id="ongkos" class="form-control" readonly>
             </div>
-
-            <!-- Button Hitung -->
-            <button type="button" class="btn btn-primary" id="hitung-btn">HITUNG</button>
+            <button type="button" class="btn btn-primary" onclick="calculatePrices()">HITUNG</button>
         </form>
 
-        <div id="hasil-hitung" class="mt-4"></div>
+        <div id="result" class="mt-4">
+            <p id="resultHargaPerGram">Harga Pergram: </p>
+            <p id="resultTotalHarga">Total Harga: </p>
+            <p id="resultHargaOngkos">Harga Ongkos: </p>
+            <p id="resultGrandTotal">Grand Total: </p>
+        </div>
 
-        <!-- Tambah Barang Button -->
-        <button type="button" class="btn btn-success mt-4" id="tambah-barang-btn">TAMBAH BARANG</button>
+        <!-- Modal Tambah Barang -->
+        <button type="button" class="btn btn-success mt-4" data-toggle="modal" data-target="#addItemModal">
+            Tambah Barang
+        </button>
 
-        <!-- Tabel Total Harga -->
-        <table class="table table-bordered mt-4">
-            <thead>
-                <tr>
-                    <th scope="col">No</th>
-                    <th scope="col">Harga Per Gram</th>
-                    <th scope="col">Total Harga</th>
-                    <th scope="col">Harga Ongkos</th>
-                    <th scope="col">Grand Total</th>
-                </tr>
-            </thead>
-            <tbody id="tabel-hitung"></tbody>
-        </table>
+        <!-- Modal -->
+        <div class="modal fade" id="addItemModal" tabindex="-1" role="dialog" aria-labelledby="addItemModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addItemModalLabel">Tambah Barang</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="addItemForm">
+                            <div class="form-group">
+                                <label for="kodeBarang">Kode Barang</label>
+                                <input type="text" class="form-control" id="kodeBarang">
+                            </div>
+                            <div class="form-group">
+                                <label for="hargaBarang">Harga Barang</label>
+                                <input type="number" class="form-control" id="hargaBarang">
+                            </div>
+                            <div class="form-group">
+                                <label for="beratBarang">Berat Barang</label>
+                                <input type="number" class="form-control" id="beratBarang">
+                            </div>
+                            <div class="form-group">
+                                <label for="warnaBarang">Warna Barang</label>
+                                <select class="form-control" id="warnaBarang">
+                                    <option value="kuning">Kuning</option>
+                                    <option value="putih">Putih</option>
+                                    <option value="rosegold">Rosegold</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                        <button type="button" class="btn btn-primary" onclick="saveItem()">Simpan</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- Script -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.8/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
     <script>
-        const cokimValue = 1350000; // Cokim header
-        const hargaMap = {
-            38: 300000,
-            46.5: 500000,
-            44: 605000,
-            46: 615000,
-            48: 620000,
-            49: 645000,
-            54: null, // Percentage-based
-            76: null, // Percentage-based
-            78: null, // Percentage-based
-            84: null, // Percentage-based
-            87: null, // Percentage-based
-            92: null, // Percentage-based
-            102: null, // Percentage-based
-        };
+        let cokimPrice = 1300000;
+        
+        // Update harga per gram berdasarkan kode emas
+        function updatePrice() {
+            let kode = parseFloat(document.getElementById('kodeEmas').value);
+            let hargaPerGram;
+            let ongkos;
 
-        const ongkosMap = {
-            kuning: 0,
-            putih: 15000,
-            rosegold: 15000,
-        };
-
-        $('#kode-emas').change(function() {
-            updateHarga();
-        });
-
-        $('#warna').change(function() {
-            updateOngkos();
-        });
-
-        $('#hitung-btn').click(function() {
-            hitungHarga();
-        });
-
-        $('#tambah-barang-btn').click(function() {
-            // Implement tambah barang logic here
-        });
-
-        function updateHarga() {
-            const kodeEmas = parseFloat($('#kode-emas').val());
-            if (hargaMap[kodeEmas]) {
-                $('#harga').val(hargaMap[kodeEmas]);
-            } else {
-                const cokim = cokimValue;
-                let persentase = 0;
-                switch (kodeEmas) {
-                    case 54: persentase = 0.54; break;
-                    case 76: persentase = 0.77; break;
-                    case 78: persentase = 0.79; break;
-                    case 84: persentase = 0.85; break;
-                    case 87: persentase = 0.885; break;
-                    case 92: persentase = 0.92; break;
-                    case 102: persentase = 1.02; break;
-                }
-                $('#harga').val(cokim * persentase);
+            if (kode == 38) hargaPerGram = 300000;
+            else if (kode == 46.5) hargaPerGram = 500000;
+            else if (kode == 44) hargaPerGram = 605000;
+            else if (kode == 46) hargaPerGram = 615000;
+            else if (kode == 48) hargaPerGram = 620000;
+            else if (kode == 49) hargaPerGram = 645000;
+            else {
+                if (kode == 54) hargaPerGram = cokimPrice * 0.54;
+                else if (kode == 76) hargaPerGram = cokimPrice * 0.77;
+                else if (kode == 78) hargaPerGram = cokimPrice * 0.79;
+                else if (kode == 84) hargaPerGram = cokimPrice * 0.85;
+                else if (kode == 87) hargaPerGram = cokimPrice * 0.885;
+                else if (kode == 92) hargaPerGram = cokimPrice * 0.92;
+                else if (kode == 102) hargaPerGram = cokimPrice * 1.02;
             }
+
+            document.getElementById('hargaPerGram').value = hargaPerGram;
+            
+            // Update ongkos
+            let warna = document.getElementById('warna').value;
+            if (warna === 'kuning') ongkos = 0;
+            else ongkos = 15000;
+
+            document.getElementById('ongkos').value = ongkos;
         }
 
-        function updateOngkos() {
-            const warna = $('#warna').val();
-            $('#ongkos').val(ongkosMap[warna]);
+        // Fungsi untuk pembulatan harga
+        function roundToNearest(value) {
+            let remainder = value % 1000;
+            if (remainder >= 1 && remainder <= 499) return Math.floor(value / 1000) * 1000 + 500;
+            else if (remainder >= 501 && remainder <= 999) return Math.floor(value / 1000) * 1000 + 1000;
+            else return value;
         }
 
-        function hitungHarga() {
-            const harga = parseFloat($('#harga').val());
-            const berat = parseFloat($('#berat').val());
-            const ongkos = parseFloat($('#ongkos').val());
+        // Hitung total harga dan grand total
+        function calculatePrices() {
+            let hargaPerGram = parseFloat(document.getElementById('hargaPerGram').value);
+            let berat = parseFloat(document.getElementById('berat').value);
+            let ongkos = parseFloat(document.getElementById('ongkos').value);
 
-            if (isNaN(harga) || isNaN(berat) || isNaN(ongkos)) {
-                alert("Silakan masukkan semua data dengan benar.");
+            if (isNaN(berat) || berat <= 0) {
+                alert('Harap masukkan berat yang valid!');
                 return;
             }
 
-            const hargaPerGram = harga;
-            const totalHarga = hargaPerGram * berat;
-            const hargaOngkos = ongkos * berat;
-            const grandTotal = totalHarga + hargaOngkos;
+            let totalHarga = hargaPerGram * berat;
+            let hargaOngkos = ongkos * berat;
+            let grandTotal = totalHarga + hargaOngkos;
 
-            const roundedHarga = roundToNearest(totalHarga);
-            const roundedOngkos = roundToNearest(hargaOngkos);
-            const roundedGrandTotal = roundedHarga + roundedOngkos;
+            // Pembulatan harga
+            totalHarga = roundToNearest(totalHarga);
+            hargaOngkos = roundToNearest(hargaOngkos);
+            grandTotal = roundToNearest(grandTotal);
 
-            const resultHTML = `
-                <p>Harga Per Gram: ${hargaPerGram}</p>
-                <p>Pembulatan Harga Per Gram: ${roundedHarga}</p>
-                <p>Total Harga: ${totalHarga}</p>
-                <p>Pembulatan Total Harga: ${roundedHarga}</p>
-                <p>Harga Ongkos: ${hargaOngkos}</p>
-                <p>Pembulatan Ongkos: ${roundedOngkos}</p>
-                <p>Grand Total: ${grandTotal}</p>
-                <p>Pembulatan Grand Total: ${roundedGrandTotal}</p>
-            `;
-
-            $('#hasil-hitung').html(resultHTML);
-            updateTable(roundedHarga, roundedOngkos, roundedGrandTotal);
+            document.getElementById('resultHargaPerGram').innerText = `Harga Pergram: Rp ${totalHarga}`;
+            document.getElementById('resultTotalHarga').innerText = `Total Harga: Rp ${totalHarga}`;
+            document.getElementById('resultHargaOngkos').innerText = `Harga Ongkos: Rp ${hargaOngkos}`;
+            document.getElementById('resultGrandTotal').innerText = `Grand Total: Rp ${grandTotal}`;
         }
 
-        function roundToNearest(value) {
-            const remainder = value % 1000;
-            if (remainder >= 1 && remainder <= 499) {
-                return value - remainder + 500;
-            } else if (remainder >= 501 && remainder <= 999) {
-                return value - remainder + 1000;
-            }
-            return value;
+        // Save item to a list or database (not implemented in this script)
+        function saveItem() {
+            let kodeBarang = document.getElementById('kodeBarang').value;
+            let hargaBarang = document.getElementById('hargaBarang').value;
+            let beratBarang = document.getElementById('beratBarang').value;
+            let warnaBarang = document.getElementById('warnaBarang').value;
+
+            // Logic to save item goes here (e.g., AJAX or direct insertion into database)
+
+            // Close modal after saving
+            $('#addItemModal').modal('hide');
         }
 
-        function updateTable(harga, ongkos, grandTotal) {
-            const rowHTML = `
-                <tr>
-                    <td>1</td>
-                    <td>${harga}</td>
-                    <td>${harga}</td>
-                    <td>${ongkos}</td>
-                    <td>${grandTotal}</td>
-                </tr>
-            `;
-            $('#tabel-hitung').html(rowHTML);
+        // Update Cokim header
+        function updateCokimHeader(value) {
+            document.getElementById("cokimHeader").innerHTML = `Cokim saat ini: ${value}`;
         }
 
-        $(document).ready(function() {
-            updateHarga();
-            updateOngkos();
-        });
+        updateCokimHeader(cokimPrice);
     </script>
 </body>
 </html>
