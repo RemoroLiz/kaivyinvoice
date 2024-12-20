@@ -1,97 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Game Selection</title>
-  </head>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 20px;
-      background-color: #f8f8f8;
-    }
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator Emas</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .menu-button {
+            border-radius: 25px;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Kalkulator Emas</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="kalkupameran.html">Kalkulator Pameran</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="kalkucabbandung.html">Kalkulator Cab Bandung</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="kalkucokimbandung.html">Kalkulator Bandung Cokim</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="kalkucabcirebon.html">Kalkulator Cab Cirebon</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
 
-    h2 {
-      text-align: center;
-      color: #333;
-    }
-
-    #nameInput {
-      text-align: center;
-    }
-
-    #nameInput input[type="text"] {
-      padding: 8px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      margin-right: 10px;
-    }
-
-    #nameInput button {
-      padding: 8px 16px;
-      background-color: #4caf50;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    #gameSelection {
-      margin-top: 20px;
-      text-align: center;
-    }
-
-    #gameSelection p {
-      margin-bottom: 10px;
-    }
-
-    #gameSelection button {
-      padding: 8px 16px;
-      margin: 0 5px;
-      background-color: #008cba;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    #gameSelection button:hover {
-      background-color: #005f6b;
-    }
-  </style>
-  <body>
-    <div class="container">
-      <h2>Welcome to Game Selection</h2>
-      <div id="nameInput">
-        <label for="username">Please enter your name:</label>
-        <input type="text" id="username" placeholder="Your name..." />
-        <button onclick="updateName()">Submit</button>
-      </div>
-      <div id="gameSelection" style="display: none">
-        <p>Pilih Game <span id="userNameDisplay"></span>:</p>
-        <a href="inputff.html"
-          >
-        <button onclick="selectGame('Mobile Legend')">Mobile Legend</button></a>
-        <a href="inputff.html"
-          ><button onclick="selectGame('Free Fire')">Free Fire</button></a
-        >
-      </div>
+    <!-- Body -->
+    <div class="container text-center my-5">
+        <h1 class="mb-4">Pilih Kalkulator</h1>
+        <div class="d-flex justify-content-center flex-wrap">
+            <button class="btn btn-primary menu-button">Kalkulator Pameran</button>
+            <button class="btn btn-primary menu-button">Kalkulator Cab Bandung</button>
+            <button class="btn btn-primary menu-button">Kalkulator Bandung Cokim</button>
+            <button class="btn btn-primary menu-button">Kalkulator Cab Cirebon</button>
+        </div>
     </div>
 
-    <script>
-      function updateName() {
-        var userName = document.getElementById("username").value;
-        var userNameDisplay = document.getElementById("userNameDisplay");
-        userNameDisplay.textContent = userName;
-        document.getElementById("nameInput").style.display = "none";
-        document.getElementById("gameSelection").style.display = "block";
-      }
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-3">
+        <p class="mb-0">&copy; Tester Kalkulator Toko Mas Pantes</p>
+    </footer>
 
-      function selectGame(gameName) {
-        alert("Game selected: " + gameName);
-      }
-    </script>
-  </body>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.4.4/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
 </html>
