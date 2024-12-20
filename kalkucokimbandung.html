@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator Emas</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .menu-button {
+            border-radius: 25px;
+            margin: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .menu-button {
+                width: 100%;
+            }
+        }
+
+        .form-section {
+            margin: 20px 0;
+        }
+
+        .detail-row {
+            margin-top: 10px;
+        }
+
+        .total-price {
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .item-row {
+            margin-top: 15px;
+        }
+
+        .delete-button {
+            background-color: red;
+            color: white;
+            border: none;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Kalkulator Emas</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="kalkupameran.html">Kalkulator Pameran</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="kalkucabbandung.html">Kalkulator Cab Bandung</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="kalkucokimbandung.html">Kalkulator Bandung Cokim</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="kalkucabcirebon.html">Kalkulator Cab Cirebon</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h3>Cokim Saat Ini: 1350000</h3>
+        
+        <form id="calcForm">
+            <div class="form-section">
+                <label for="kodeEmas">KODE EMAS:</label>
+                <select id="kodeEmas" class="form-control">
+                    <option value="38">38 JUENE</option>
+                    <option value="46.5">46.5 BG GOLD</option>
+                    <option value="44">44 KUNING 8K</option>
+                    <option value="46">46 PUTIH 8K</option>
+                    <option value="48">48 KUNING 9K</option>
+                    <option value="49">49 PUTIH 9K</option>
+                    <option value="54">54 VOILA & ILY</option>
+                    <option value="76">76 16K</option>
+                    <option value="78">78 16K COLL</option>
+                    <option value="84">84 17K</option>
+                    <option value="87">87 17K COLL</option>
+                    <option value="92">92 SDW</option>
+                    <option value="102">102 ITALY</option>
+                </select>
+            </div>
+
+            <div class="form-section">
+                <label for="warna">WARNA:</label>
+                <select id="warna" class="form-control">
+                    <option value="KUNING">KUNING</option>
+                    <option value="PUTIH">PUTIH</option>
+                    <option value="ROSEGOLD">ROSEGOLD</option>
+                </select>
+            </div>
+
+            <div class="form-section">
+                <label for="harga">HARGA:</label>
+                <input type="text" id="harga" class="form-control" readonly>
+            </div>
+
+            <div class="form-section">
+                <label for="berat">BERAT (GR):</label>
+                <input type="number" id="berat" class="form-control" placeholder="Masukkan Berat dalam Gram" required>
+            </div>
+
+            <button type="button" class="btn btn-primary menu-button" onclick="hitungHarga()">HITUNG</button>
+        </form>
+
+        <!-- Detail Hitungan -->
+        <div id="detailHitungan"></div>
+
+        <div class="total-price" id="totalHarga"></div>
+
+        <hr>
+
+        <h4>Form Tambah Barang</h4>
+        <div id="additionalForms"></div>
+        <button type="button" class="btn btn-secondary menu-button" onclick="tambahBarang()">Tambah Barang</button>
+    </div>
+
+    <script>
+        const cokimPrice = 1300000;
+
+        const hargaEmas = {
+            38: 300000,
+            46.5: 500000,
+            44: 605000,
+            46: 615000,
+            48: 620000,
+            49: 645000,
+            54: 'Cokim * 54%',
+            76: 'Cokim * 77%',
+            78: 'Cokim * 79%',
+            84: 'Cokim * 85%',
+            87: 'Cokim * 88.5%',
+            92: 'Cokim * 92%',
+            102: 'Cokim * 102%'
+        };
+
+        function hitungHarga() {
+            const kodeEmas = parseFloat(document.getElementById('kodeEmas').value);
+            const berat = parseFloat(document.getElementById('berat').value);
+            let harga = hargaEmas[kodeEmas];
+
+            // Logika untuk harga berdasarkan kode
+            if (typeof harga === 'string' && harga.includes('Cokim')) {
+                harga = cokimPrice * parseFloat(harga.split(' * ')[1]) / 100;
+            }
+
+            let totalHarga = harga * berat;
+
+            // Pembulatan
+            if (totalHarga % 1000 >= 1 && totalHarga % 1000 <= 499) {
+                totalHarga = Math.floor(totalHarga / 1000) * 1000 + 500;
+            } else if (totalHarga % 1000 >= 501 && totalHarga % 1000 <= 999) {
+                totalHarga = Math.ceil(totalHarga / 1000) * 1000;
+            }
+
+            // Tampilkan detail hitungan
+            document.getElementById('detailHitungan').innerHTML = `
+                <div class="detail-row">Harga per gram: ${harga}</div>
+                <div class="detail-row">Total Harga: ${totalHarga}</div>
+            `;
+        }
+
+        function tambahBarang() {
+            const form = document.createElement('div');
+            form.classList.add('item-row');
+            form.innerHTML = `
+                <div class="form-section">
+                    <label for="kodeEmas">KODE EMAS:</label>
+                    <select class="form-control">
+                        <option value="38">38 JUENE</option>
+                        <option value="46.5">46.5 BG GOLD</option>
+                        <option value="44">44 KUNING 8K</option>
+                        <option value="46">46 PUTIH 8K</option>
+                        <option value="48">48 KUNING 9K</option>
+                        <option value="49">49 PUTIH 9K</option>
+                        <option value="54">54 VOILA & ILY</option>
+                        <option value="76">76 16K</option>
+                        <option value="78">78 16K COLL</option>
+                        <option value="84">84 17K</option>
+                        <option value="87">87 17K COLL</option>
+                        <option value="92">92 SDW</option>
+                        <option value="102">102 ITALY</option>
+                    </select>
+                </div>
+                <div class="form-section">
+                    <label for="warna">WARNA:</label>
+                    <select class="form-control">
+                        <option value="KUNING">KUNING</option>
+                        <option value="PUTIH">PUTIH</option>
+                        <option value="ROSEGOLD">ROSEGOLD</option>
+                    </select>
+                </div>
+                <div class="form-section">
+                    <label for="berat">BERAT (GR):</label>
+                    <input type="number" class="form-control" placeholder="Masukkan Berat dalam Gram">
+                </div>
+                <button type="button" class="btn btn-danger menu-button delete-button" onclick="hapusBarang(this)">Hapus Barang</button>
+                <button type="button" class="btn btn-primary menu-button" onclick="hitungHarga()">HITUNG</button>
+            `;
+            document.getElementById('additionalForms').appendChild(form);
+        }
+
+        function hapusBarang(button) {
+            button.parentElement.remove();
+        }
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
