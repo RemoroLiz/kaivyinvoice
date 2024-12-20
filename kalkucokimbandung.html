@@ -212,11 +212,12 @@
             let grandTotal = totalHarga + hargaOngkos;
 
             // Pembulatan harga
+            hargaPerGram = roundToNearest(hargaPerGram);
             totalHarga = roundToNearest(totalHarga);
             hargaOngkos = roundToNearest(hargaOngkos);
             grandTotal = roundToNearest(grandTotal);
 
-            document.getElementById('resultHargaPerGram').innerText = `Harga Pergram: Rp ${totalHarga}`;
+            document.getElementById('resultHargaPerGram').innerText = `Harga Pergram: Rp ${hargaPerGram}`;
             document.getElementById('resultTotalHarga').innerText = `Total Harga: Rp ${totalHarga}`;
             document.getElementById('resultHargaOngkos').innerText = `Harga Ongkos: Rp ${hargaOngkos}`;
             document.getElementById('resultGrandTotal').innerText = `Grand Total: Rp ${grandTotal}`;
