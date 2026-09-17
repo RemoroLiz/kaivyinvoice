@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <base target="_top">
+  <meta charset="utf-8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js"></script>
+  <?!= include('Style'); ?>
+</head>
+<body>
+
+  <div class="shell">
+
+    <header class="topbar">
+      <div class="topbar-title">
+        <h1 id="pageTitle">Laporan Penjualan Sales</h1>
+        <p id="pageSubtitle" class="muted">Memuat rentang tanggal&hellip;</p>
+      </div>
+
+      <form id="filterForm" class="filter-form" autocomplete="off">
+        <div class="field">
+          <label for="startDate">Dari tanggal</label>
+          <input type="date" id="startDate" name="startDate" required>
+        </div>
+        <div class="field">
+          <label for="endDate">Sampai tanggal</label>
+          <input type="date" id="endDate" name="endDate" required>
+        </div>
+        <button type="submit" class="btn-primary" id="applyBtn">Terapkan</button>
+      </form>
+    </header>
+
+    <div id="statusBar" class="status-bar" hidden></div>
+
+    <section class="panel" aria-label="Peringkat sales">
+      <div class="panel-head">
+        <h2>Peringkat sales berdasarkan omzet</h2>
+        <p class="muted">Total rupiah per sales pada rentang tanggal terpilih</p>
+      </div>
+      <div class="chart-wrap chart-wrap-tall">
+        <canvas id="totalsChart"></canvas>
+      </div>
+    </section>
+
+    <nav class="tabs" role="tablist" aria-label="Granularitas laporan">
+      <button class="tab is-active" role="tab" aria-selected="true" data-period="daily" id="tab-daily">Harian</button>
+      <button class="tab" role="tab" aria-selected="false" data-period="weekly" id="tab-weekly">Mingguan</button>
+      <button class="tab" role="tab" aria-selected="false" data-period="monthly" id="tab-monthly">Bulanan</button>
+    </nav>
+
+    <section class="panel" aria-label="Tren omzet">
+      <div class="panel-head">
+        <h2 id="trendTitle">Tren omzet harian</h2>
+      </div>
+      <div class="chart-wrap">
+        <canvas id="trendChart"></canvas>
+      </div>
+    </section>
+
+    <section id="periodsContainer" class="periods">
+      <!-- Sub-tabel per periode disisipkan lewat JavaScript -->
+    </section>
+
+  </div>
+
+  <?!= include('Script'); ?>
+</body>
+</html>
